@@ -18,6 +18,8 @@
                     </tr>
                 </thead>
                 <tbody>
+                {{ dd($errors) }}
+
                 @foreach($products as $product)
                     <tr>
                         <td>{{ $product->id }}</td>

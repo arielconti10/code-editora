@@ -8,10 +8,13 @@
             {!! Form::model($category, [
                 'route' => ['categories.update', 'category' => $category->id], 'class' => 'form', 'method' => 'PUT']) !!}
 
-            <div class="form-group">
-                {!! Form::label('name', 'Nome') !!}
+            {!! Html::openFormGroup('name', $errors) !!}
+                {!! Form::label('name', 'Nome', ['class' => 'control-label']) !!}
                 {!! Form::text('name', null, ['class' => 'form-control']) !!}
-            </div>
+                {!! Form::error('name', $errors) !!}
+
+            {!! Html::closeFormGroup() !!}
+
 
             <div class="form-group">
                 {!! Form::submit('Salvar categoria', ['class' => 'btn btn-primary']) !!}

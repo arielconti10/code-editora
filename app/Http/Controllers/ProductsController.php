@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Product;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
@@ -36,11 +39,14 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        Product::create($request->all());
-        return redirect()->route('products.index');
+        $product = new Product($request->all());
 
+        $product->user_id = Auth::user()->id;
+        $product->save();
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -60,33 +66,38 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        if(!($product = Product::find($id))){
+        if(!($product)){
             throw new ModelNotFoundException('Product não foi encontrada');
         }
-
-        return view('products.edit', compact('product'));
+        if(Auth::user()->can('update', $product)) {
+            return view('products.edit', compact('product'));
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        if(!($product = Product::find($id))){
+
+        if(!($product)){
             throw new ModelNotFoundException('Category não foi encontrada');
         }
+        if(Auth::user()->can('update', $product)){
+            $data = $request->all();
+            $product->fill($data);
+            $product->save();
 
-        $data = $request->all();
-        $product->fill($data);
-        $product->save();
-
-        return redirect()->route('products.index');
+            return redirect()->route('products.index');
+        } else {
+            return redirect()->back()->with('error', 'Usuario nao autorizado');
+        }
     }
 
     /**
