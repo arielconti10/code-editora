@@ -26,7 +26,7 @@
                 {!! Html::closeFormGroup() !!}
 
                 {!! Html::openFormGroup() !!}
-                    {!! Form::submit('Criar produto', ['class' => 'btn btn-primary']) !!}
+                    {!! Button::primary('Criar produto')->submit() !!}
                 {!! Html::closeFormGroup() !!}
 
             {!! Form::close() !!}

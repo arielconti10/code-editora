@@ -40,8 +40,9 @@ class CategoriesController extends Controller
     public function store(CategoryRequest $request)
     {
         Category::create($request->all());
-        return redirect()->route('categories.index');
-
+        $url = $request->get('redirect_to', route('categories.index'));
+        $request->session()->flash('message', 'Categoria cadastrada com sucesso');
+        return redirect()->to($url);
     }
 
     /**
@@ -61,9 +62,9 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        if(!($category = Category::find($id))){
+        if(!($category)){
             throw new ModelNotFoundException('Category não foi encontrada');
         }
 
@@ -78,17 +79,16 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        if(!($category = Category::find($id))){
+        if(!$category){
             throw new ModelNotFoundException('Category não foi encontrada');
         }
 
-        $data = $request->all();
-        $category->fill($data);
+        $category->fill($request->all());
         $category->save();
-
-        return redirect()->route('categories.index');
+        $url = $request->get('redirect_to', route('categories.index'));
+        return redirect()->to($url);
     }
 
     /**

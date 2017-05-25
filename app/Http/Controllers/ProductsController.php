@@ -45,8 +45,9 @@ class ProductsController extends Controller
 
         $product->user_id = Auth::user()->id;
         $product->save();
+        $url = $request->get('redirect_to', route('categories.index'));
+        return redirect()->to($url);
 
-        return redirect()->route('products.index');
     }
 
     /**
@@ -94,7 +95,8 @@ class ProductsController extends Controller
             $product->fill($data);
             $product->save();
 
-            return redirect()->route('products.index');
+            $url = $request->get('redirect_to', route('categories.index'));
+            return redirect()->to($url);
         } else {
             return redirect()->back()->with('error', 'Usuario nao autorizado');
         }

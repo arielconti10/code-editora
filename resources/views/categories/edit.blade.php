@@ -8,15 +8,11 @@
             {!! Form::model($category, [
                 'route' => ['categories.update', 'category' => $category->id], 'class' => 'form', 'method' => 'PUT']) !!}
 
-            {!! Html::openFormGroup('name', $errors) !!}
-                {!! Form::label('name', 'Nome', ['class' => 'control-label']) !!}
-                {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                {!! Form::error('name', $errors) !!}
-
-            {!! Html::closeFormGroup() !!}
+            @include('categories._form')
 
 
             <div class="form-group">
+                {!! Button::primary('Salvar categoria')->submit() !!}
                 {!! Form::submit('Salvar categoria', ['class' => 'btn btn-primary']) !!}
             </div>
         </div>

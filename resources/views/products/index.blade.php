@@ -7,43 +7,28 @@
             <a href="{{ route('products.create') }}" class="btn btn-primary">Novo produto</a>
         </div>
         <div class="row">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Titulo</th>
-                        <th>Subtitulo</th>
-                        <th>Preço</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                @foreach($products as $product)
-                    <tr>
-                        <td>{{ $product->id }}</td>
-                        <td>{{ $product->title }}</td>
-                        <td>{{ $product->subtitle }}</td>
-                        <td>{{ $product->price }}</td>
-                        <td>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('products.edit', ['product' => $product->id]) }}" class="btn btn-link">Editar</a>
-                                </li>
-                                <li>
-                                    <?php $deleteForm = "delete-form-{$loop->index}" ?>
-                                    <a href="{{ route('products.destroy', ['product' => $product->id]) }}" class="btn btn-link"
-                                        onclick="event.preventDefault(); document.getElementById('{{$deleteForm}}').submit()">Excluir</a>
+            {!!
+                Table::withContents($products->items())->striped()
+                ->callback('Ações', function($field, $product){
+                    $linkEdit = route('products.edit', ['product' => $product->id]);
+                    $linkDestroy = route('products.destroy', ['product' => $product->id]);
+                    $deleteForm = "delete-form-{$product->id}";
+                     $form = Form::open(['route' => ['products.destroy', 'product' => $product->id],
+                            'method' => 'DELETE', 'id' => $deleteForm, 'style' => 'display:none']).
+                            Form::close();
+                     $anchorDestroy = Button::link('Delete')->asLinkTo($linkDestroy)
+                                     ->addAttributes([
+                                        'onclick' => "event.preventDefault();document.getElementById(\"{$deleteForm}\").submit()"
+                                     ]);
+                     return "<ul class=\"list-inline\">
+                                <li>".Button::link('Editar')->asLinkTo($linkEdit)."</li>
+                                <li>|</li>
+                                <li>".$anchorDestroy."</li>
+                            </ul>".
+                            $form;
+                })
 
-                                    {!! Form::open(['route' => ['products.destroy', 'product' => $product->id] , 'class' => 'form', 'method' => 'DELETE', 'id' => "{$deleteForm}", 'style' => 'display:none']) !!}
-                                    {!! Form::submit('Excluir', ['class' => 'btn btn-link']) !!}
-                                    {!! Form::close() !!}
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+             !!}
 
             {{ $products->links() }}
         </div>
