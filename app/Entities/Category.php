@@ -5,6 +5,19 @@ namespace App\Entities;
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Entities\Category
+ *
+ * @property integer $id
+ * @property string $name
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Category whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Category whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Category whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Category extends Model implements TableInterface
 {
     protected $fillable = [

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Product;
+use App\Entities\Product;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductRequest extends FormRequest
+class ProductCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,9 +28,9 @@ class ProductRequest extends FormRequest
         $id = $product ? $product->id : null;
 
         return [
-            'title' => "required|max:255|unique:products,title,{$id}",
-            'subtitle' => 'required',
-            'price' => 'required'
+            'title' => "required|max:255",
+            'subtitle' => 'required|max:255',
+            'price' => 'required|numeric'
         ];
     }
 }

@@ -58,6 +58,11 @@
                 {!! Alert::success(Session::get('message'))->close() !!}
             </div>
         @endif
+        @if(Session::has('error'))
+            <div class="container">
+                {!! Alert::danger(Session::get('error'))->close() !!}
+            </div>
+        @endif
         @yield('content')
     </div>
 

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\Product;
+use App\Entities\User;
+use App\Entities\Product;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ProductPolicy
@@ -13,8 +13,8 @@ class ProductPolicy
     /**
      * Determine whether the user can view the product.
      *
-     * @param  \App\User  $user
-     * @param  \App\Product  $product
+     * @param  \App\Entities\User  $user
+     * @param  \App\Entities\Product  $product
      * @return mixed
      */
     public function view(User $user, Product $product)
@@ -25,7 +25,7 @@ class ProductPolicy
     /**
      * Determine whether the user can create products.
      *
-     * @param  \App\User  $user
+     * @param  \App\Entities\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -36,8 +36,8 @@ class ProductPolicy
     /**
      * Determine whether the user can update the product.
      *
-     * @param  \App\User  $user
-     * @param  \App\Product  $product
+     * @param  \App\Entities\User  $user
+     * @param  \App\Entities\Product  $product
      * @return mixed
      */
     public function update(User $user, Product $product)
@@ -48,8 +48,8 @@ class ProductPolicy
     /**
      * Determine whether the user can delete the product.
      *
-     * @param  \App\User  $user
-     * @param  \App\Product  $product
+     * @param  \App\Entities\User  $user
+     * @param  \App\Entities\Product  $product
      * @return mixed
      */
     public function delete(User $user, Product $product)

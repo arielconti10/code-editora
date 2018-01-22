@@ -2,25 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
-use App\Product;
+use App\Criteria\FindByTitleCriteria;
+use App\Criteria\FindByUserCriteria;
+use App\Http\Requests\ProductCreateRequest;
+use App\Entities\Product;
+use App\Http\Requests\ProductUpdateRequest;
+use App\Repositories\ProductRepository;
+use ClassesWithParents\F;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
+    private $repository;
+
+    public function __construct(ProductRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::query()->paginate(10);
-
-        return view('products.index', compact('products'));
-    }
+        $search = $request->get('search');
+        $products = $this->repository->paginate(10);
+        return view('products.index', compact('products', 'search'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -39,13 +51,13 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request)
+    public function store(ProductCreateRequest $request)
     {
-        $product = new Product($request->all());
-
-        $product->user_id = Auth::user()->id;
-        $product->save();
-        $url = $request->get('redirect_to', route('categories.index'));
+        $data = $request->all();
+        $data['user_id'] = \Auth::user()->id;
+        $this->repository->create($data);
+        $url = $request->get('redirect_to', route('products.index'));
+        $request->session()->flash('message', 'Livro cadastrado com sucesso');
         return redirect()->to($url);
 
     }
@@ -74,6 +86,10 @@ class ProductsController extends Controller
         }
         if(Auth::user()->can('update', $product)) {
             return view('products.edit', compact('product'));
+        } else {
+            \Session::flash('error', 'Usuario nao autorizado');
+
+            return redirect()->back();
         }
     }
 
@@ -84,18 +100,16 @@ class ProductsController extends Controller
      * @param  Product $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-
         if(!($product)){
             throw new ModelNotFoundException('Category não foi encontrada');
         }
         if(Auth::user()->can('update', $product)){
-            $data = $request->all();
-            $product->fill($data);
-            $product->save();
-
-            $url = $request->get('redirect_to', route('categories.index'));
+            $data = $request->except(['user_id']);
+            $this->repository->update($data, $product->id);
+            $request->session()->flash('message', 'Livro alterado com sucesso.');
+            $url = $request->get('redirect_to', route('products.index'));
             return redirect()->to($url);
         } else {
             return redirect()->back()->with('error', 'Usuario nao autorizado');
@@ -110,7 +124,8 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
-        return redirect()->route('products.index');
+        $this->repository->delete($product->id);
+        \Session::flash('message', 'Livro excluído com sucesso');
+        return redirect()->to(\URL::previous());
     }
 }
