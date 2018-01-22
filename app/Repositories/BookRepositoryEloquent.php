@@ -4,8 +4,8 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\ProductRepository;
-use App\Entities\Product;
+use App\Repositories\BookRepository;
+use App\Entities\Book;
 use App\Validators\ProductValidator;
 
 /**
@@ -13,7 +13,7 @@ use App\Validators\ProductValidator;
  *
  * @package namespace App\Repositories;
  */
-class ProductRepositoryEloquent extends BaseRepository implements ProductRepository
+class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
     protected $fieldSearchable = [
         'title' => 'like',
@@ -28,7 +28,7 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
      */
     public function model()
     {
-        return Product::class;
+        return Book::class;
     }
 
     

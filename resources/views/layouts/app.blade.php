@@ -28,7 +28,7 @@
                     'title' => 'Categorias'
                 ],
                 [
-                    'link' => route('products.index'),
+                    'link' => route('books.index'),
                     'title' => 'Produtos',
 
                 ],

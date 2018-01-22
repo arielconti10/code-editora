@@ -16,25 +16,25 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $updated_at
  * @property integer $user_id
  * @property-read \App\Entities\User $user
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Product whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Product whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Product whereSubtitle($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Product wherePrice($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Product whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\Product whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Book whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Book whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Book whereSubtitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Book wherePrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Book whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Book whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Entities\Book whereUserId($value)
  * @mixin \Eloquent
  */
-class Product extends Model implements TableInterface
+class Book extends Model implements TableInterface
 {
     protected $fillable = [
         'title',
         'subtitle',
         'price',
-        'user_id'
+        'author_id'
     ];
 
-    public function user()
+    public function author()
     {
         return $this->belongsTo('App\Entities\User');
     }
@@ -55,7 +55,7 @@ class Product extends Model implements TableInterface
             case 'Preço' :
                 return $this->price;
             case 'Usuário' :
-                return $this->user->name;
+                return $this->author->name;
             break;
         }
     }

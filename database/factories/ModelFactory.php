@@ -27,7 +27,7 @@ $factory->define(App\Entities\Category::class, function (Faker\Generator $faker)
     ];
 });
 
-$factory->define(App\Entities\Product::class, function (Faker\Generator $faker){
+$factory->define(App\Entities\Book::class, function (Faker\Generator $faker){
 
    $repository = app(\App\Repositories\UserRepository::class);
    $authorId = $repository->all()->random()->id;
@@ -36,6 +36,6 @@ $factory->define(App\Entities\Product::class, function (Faker\Generator $faker){
        'title' => $faker->sentence(3),
        'subtitle' => $faker->sentence(3),
        'price' => $faker->randomFloat(2,10,100),
-       'user_id' => $authorId
+       'author_id' => $authorId
    ];
 });

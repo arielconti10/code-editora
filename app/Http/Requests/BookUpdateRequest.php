@@ -2,14 +2,14 @@
 
 namespace App\Http\Requests;
 
-use App\Repositories\ProductRepository;
+use App\Repositories\BookRepository;
 use Illuminate\Support\Facades\Auth;
 
-class ProductUpdateRequest extends ProductCreateRequest
+class BookUpdateRequest extends BookCreateRequest
 {
      private $repository;
 
-     public function __construct(ProductRepository $repository)
+     public function __construct(BookRepository $repository)
      {
          $this->repository = $repository;
      }
@@ -21,7 +21,7 @@ class ProductUpdateRequest extends ProductCreateRequest
      */
     public function authorize()
     {
-        $book = $this->route('product');
+        $book = $this->route('book');
 
         if($book->id == 0){
             return false;
@@ -37,8 +37,8 @@ class ProductUpdateRequest extends ProductCreateRequest
      */
     public function rules()
     {
-        $product = $this->route('product');
-        $id = $product ? $product->id : null;
+        $book = $this->route('book');
+        $id = $book ? $book->id : null;
 
         return [
             'title' => "required|max:255",

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Entities\Product;
+use App\Entities\Book;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductCreateRequest extends FormRequest
+class BookCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class ProductCreateRequest extends FormRequest
      */
     public function rules()
     {
-        $product = $this->route('product');
-        $id = $product ? $product->id : null;
+        $book = $this->route('book');
+        $id = $book ? $book->id : null;
 
         return [
             'title' => "required|max:255",

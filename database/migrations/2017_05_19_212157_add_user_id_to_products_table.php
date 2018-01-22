@@ -13,8 +13,8 @@ class AddUserIdToProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->integer('user_id');
+        Schema::table('books', function (Blueprint $table) {
+            $table->integer('author_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddUserIdToProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+        Schema::table('books', function (Blueprint $table) {
+            $table->dropColumn('author_id');
         });
     }
 }

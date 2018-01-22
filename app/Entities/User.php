@@ -15,7 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entities\Product[] $product
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entities\Book[] $product
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
@@ -50,8 +50,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function product()
+    public function book()
     {
-        return $this->hasMany('App\Entities\Product');
+        return $this->hasMany('App\Entities\Book');
     }
 }
