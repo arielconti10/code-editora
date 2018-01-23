@@ -88,7 +88,9 @@ class BooksController extends Controller
             throw new ModelNotFoundException('book não foi encontrada');
         }
         if(Auth::user()->can('update', $book)) {
-            return view('books.edit', compact('book'));
+            $categories = $this->categoryRepository->pluck('name', 'id');
+
+            return view('books.edit', compact('book', 'categories'));
         } else {
             \Session::flash('error', 'Usuario nao autorizado');
 

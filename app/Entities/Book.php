@@ -4,9 +4,10 @@ namespace App\Entities;
 
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
+use Collective\Html\Eloquent\FormAccessible;
 
 /**
- * App\Entities\Product
+ * App\Entities\Book
  *
  * @property integer $id
  * @property string $title
@@ -27,6 +28,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Book extends Model implements TableInterface
 {
+    use FormAccessible;
+
     protected $fillable = [
         'title',
         'subtitle',
@@ -42,6 +45,11 @@ class Book extends Model implements TableInterface
     {
         return $this->belongsTo('App\Entities\User');
     }
+
+    public function formCategoriesAttribute(){
+        return $this->categories->pluck('id')->all();
+    }
+
     public function getTableHeaders()
     {
         return ['#', 'Titulo', 'Subtitulo', 'Preço', 'Usuário'];

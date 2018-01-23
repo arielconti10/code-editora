@@ -40,9 +40,9 @@ class ProductPolicy
      * @param  \App\Entities\Book  $product
      * @return mixed
      */
-    public function update(User $user, Book $product)
+    public function update(User $user, Book $book)
     {
-        return $user->id === $product->user_id;
+        return $user->id === $book->author_id;
     }
 
     /**
