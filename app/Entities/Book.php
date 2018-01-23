@@ -5,6 +5,7 @@ namespace App\Entities;
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
 use Collective\Html\Eloquent\FormAccessible;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Entities\Book
@@ -29,6 +30,9 @@ use Collective\Html\Eloquent\FormAccessible;
 class Book extends Model implements TableInterface
 {
     use FormAccessible;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'title',

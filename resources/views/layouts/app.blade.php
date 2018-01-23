@@ -28,8 +28,18 @@
                     'title' => 'Categorias'
                 ],
                 [
-                    'link' => route('books.index'),
-                    'title' => 'Produtos',
+                    'Livro',
+                    [
+                        [
+                            'link' => route('books.index'),
+                            'title' => 'Listar'
+                        ],
+                        [
+                            'link' => route('thrashed.books.index'),
+                            'title' => 'Lixeira'
+                        ]
+                    ],
+
 
                 ],
             ]);
