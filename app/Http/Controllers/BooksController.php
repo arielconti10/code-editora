@@ -8,6 +8,7 @@ use App\Http\Requests\bookCreateRequest;
 use App\Entities\Book;
 use App\Http\Requests\bookUpdateRequest;
 use App\Repositories\BookRepository;
+use App\Repositories\CategoryRepository;
 use ClassesWithParents\F;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -16,10 +17,12 @@ use Illuminate\Support\Facades\Auth;
 class BooksController extends Controller
 {
     private $repository;
+    private $categoryRepository;
 
-    public function __construct(BookRepository $repository)
+    public function __construct(BookRepository $repository, CategoryRepository $categoryRepository)
     {
         $this->repository = $repository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -41,8 +44,8 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books.create');
-
+        $categories = $this->categoryRepository->pluck('name', 'id');
+        return view('books.create', compact('categories'));
     }
 
     /**
@@ -51,10 +54,10 @@ class BooksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(bookCreateRequest $request)
+    public function store(BookCreateRequest $request)
     {
         $data = $request->all();
-        $data['user_id'] = \Auth::user()->id;
+        $data['author_id'] = \Auth::user()->id;
         $this->repository->create($data);
         $url = $request->get('redirect_to', route('books.index'));
         $request->session()->flash('message', 'Livro cadastrado com sucesso');

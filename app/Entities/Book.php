@@ -34,6 +34,10 @@ class Book extends Model implements TableInterface
         'author_id'
     ];
 
+    public function categories(){
+        return $this->belongsToMany(Category::class);
+    }
+
     public function author()
     {
         return $this->belongsTo('App\Entities\User');
@@ -59,5 +63,6 @@ class Book extends Model implements TableInterface
             break;
         }
     }
+
 
 }

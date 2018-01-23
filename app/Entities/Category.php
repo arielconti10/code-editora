@@ -24,6 +24,10 @@ class Category extends Model implements TableInterface
         'name'
     ];
 
+    public function books(){
+        return $this->belongsToMany(Book::class);
+    }
+
     public function getTableHeaders()
     {
      return ['#', 'Nome'];
@@ -39,5 +43,6 @@ class Category extends Model implements TableInterface
             break;
         }
     }
+
 
 }

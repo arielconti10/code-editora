@@ -5,7 +5,7 @@
         <div class="row">
             <h3>Novo produto</h3>
 
-            {!! Form::open(['route' => 'products.store', 'class' => 'form']) !!}
+            {!! Form::open(['route' => 'books.store', 'class' => 'form']) !!}
 
                 {!! Html::openFormGroup('title', $errors) !!}
                     {!! Form::label('title', 'Titulo') !!}
@@ -22,6 +22,12 @@
                 {!! Html::openFormGroup('price', $errors) !!}
                     {!! Form::label('price', 'Preço', ['class' => 'control-label']) !!}
                     {!! Form::number('price', null, ['class' => 'form-control']) !!}
+                    {!! Form::error('price', $errors) !!}
+                {!! Html::closeFormGroup() !!}
+
+                {!! Html::openFormGroup('categories', $errors) !!}
+                    {!! Form::label('categories', 'Categorias', ['class' => 'control-label']) !!}
+                    {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'multiple' => true]) !!}
                     {!! Form::error('price', $errors) !!}
                 {!! Html::closeFormGroup() !!}
 
