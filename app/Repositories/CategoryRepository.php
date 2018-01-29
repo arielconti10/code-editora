@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Criteria\CriteriaTrashedInterface;
+use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
@@ -9,7 +11,11 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface CategoryRepository extends RepositoryInterface
+interface CategoryRepository extends
+    RepositoryInterface,
+    RepositoryCriteriaInterface,
+    CriteriaTrashedInterface,
+    RepositoryRestoreInterface
 {
-    //
+    public function pluckWithMutators($column, $key = null);
 }

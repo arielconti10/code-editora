@@ -9,7 +9,8 @@
 namespace App\Criteria;
 
 
-interface CriteriaOnlyTrashedInterface
+interface CriteriaTrashedInterface
 {
     public function onlyTrashed();
+    public function withTrashed();
 }

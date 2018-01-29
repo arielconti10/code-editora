@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Criteria\CriteriaOnlyTrashedTrait;
+use App\Criteria\CriteriaTrashedTrait;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\BookRepository;
@@ -16,12 +16,13 @@ use App\Validators\ProductValidator;
  */
 class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
-    use CriteriaOnlyTrashedTrait;
+    use CriteriaTrashedTrait;
     use RepositoryRestoreTrait;
 
     protected $fieldSearchable = [
         'title' => 'like',
-        'user.name' => 'like'
+        'author.name' => 'like',
+        'categories.name' => 'like'
     ];
 
     public function create(array $attributes)
@@ -48,8 +49,6 @@ class BookRepositoryEloquent extends BaseRepository implements BookRepository
     {
         return Book::class;
     }
-
-    
 
     /**
      * Boot up the repository, pushing criteria

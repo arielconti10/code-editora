@@ -27,7 +27,7 @@ class BookUpdateRequest extends BookCreateRequest
             return false;
         }
 
-        return $book->user_id == \Auth::user()->id;
+        return $book->author_id == \Auth::user()->id;
     }
 
     /**

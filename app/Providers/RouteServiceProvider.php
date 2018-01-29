@@ -26,8 +26,6 @@ class RouteServiceProvider extends ServiceProvider
         //
         parent::boot();
 
-        Route::model('product', \App\Entities\Book::class);
-        Route::model('category', \App\Entities\Category::class);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use Bootstrapper\Interfaces\TableInterface;
+use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -22,22 +23,44 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model implements TableInterface
 {
     use SoftDeletes;
+    use FormAccessible;
 
+
+    /**
+     * @var array
+     */
     protected $dates = ['deleted_at'];
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function books(){
         return $this->belongsToMany(Book::class);
     }
 
+    public function getNameTrashedAttribute(){
+        return $this->trashed() ? "{$this->name} (Inativa)" : $this->name;
+    }
+
+    /**
+     * @return array
+     */
     public function getTableHeaders()
     {
      return ['#', 'Nome'];
     }
 
+    /**
+     * @param string $header
+     * @return int|string
+     */
     public function getValueForHeader($header)
     {
         switch ($header) {

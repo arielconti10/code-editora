@@ -24,8 +24,17 @@
         if(Auth::check()){
             $links = Navigation::links([
                 [
-                    'link' => route('categories.index'),
-                    'title' => 'Categorias'
+                    'Categorias',
+                    [
+                        [
+                            'link' => route('categories.index'),
+                            'title' => 'Listar'
+                        ],
+                        [
+                            'link' => route('thrashed.categories.index'),
+                            'title' => 'Lixeira'
+                        ]
+                    ],
                 ],
                 [
                     'Livro',

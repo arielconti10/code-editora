@@ -88,7 +88,8 @@ class BooksController extends Controller
             throw new ModelNotFoundException('book não foi encontrada');
         }
         if(Auth::user()->can('update', $book)) {
-            $categories = $this->categoryRepository->pluck('name', 'id');
+            $this->categoryRepository->withTrashed();
+            $categories = $this->categoryRepository->pluckWithMutators('name_trashed', 'id');
 
             return view('books.edit', compact('book', 'categories'));
         } else {
@@ -111,7 +112,7 @@ class BooksController extends Controller
             throw new ModelNotFoundException('Category não foi encontrada');
         }
         if(Auth::user()->can('update', $book)){
-            $data = $request->except(['user_id']);
+            $data = $request->except(['author_id']);
             $this->repository->update($data, $book->id);
             $request->session()->flash('message', 'Livro alterado com sucesso.');
             $url = $request->get('redirect_to', route('books.index'));
