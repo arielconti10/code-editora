@@ -3,9 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Listagem de Categorias</h3>
-            {!! Button::primary('Nova categoria')->asLinkTo(route('categories.create')) !!}
-            <br />
+            <h3>Listagem de Produtos</h3>
+            <a href="{{ route('books.create') }}" class="btn btn-primary">Novo produto</a>
         </div>
         <br />
         <div class="row">
@@ -18,30 +17,34 @@
             {!! Button::primary('Buscar')->submit() !!}
 
             {!! Form::close() !!}
+
         </div>
         <div class="row">
             {!!
-                Table::withContents($categories->items())->striped()
-                ->callback('Ações', function($field, $category){
-                    $linkEdit = route('categories.edit', ['category' => $category->id]);
-                    $linkDestroy = route('categories.destroy', ['category' => $category->id]);
-                    $deleteForm = "delete-form-{$category->id}";
-                    $form = Form::open(['route' => ['categories.destroy', 'category' => $category->id],
+                Table::withContents($books->items())->striped()
+                ->callback('Ações', function($field, $book){
+
+                    $linkEdit = route('books.edit', ['book' => $book->id]);
+                    $linkDestroy = route('books.destroy', ['book' => $book->id]);
+                    $deleteForm = "delete-form-{$book->id}";
+                     $form = Form::open(['route' => ['books.destroy', 'book' => $book->id],
                             'method' => 'DELETE', 'id' => $deleteForm, 'style' => 'display:none']).
                             Form::close();
-                    $anchorDestroy = Button::link('Delete')->asLinkTo($linkDestroy)
+                     $anchorDestroy = Button::link('Delete')->asLinkTo($linkDestroy)
                                      ->addAttributes([
                                         'onclick' => "event.preventDefault();document.getElementById(\"{$deleteForm}\").submit()"
                                      ]);
-                    return "<ul class=\"list-inline\">
+                     return "<ul class=\"list-inline\">
                                 <li>".Button::link('Editar')->asLinkTo($linkEdit)."</li>
                                 <li>|</li>
                                 <li>".$anchorDestroy."</li>
                             </ul>".
                             $form;
                 })
-            !!}
-        {{ $categories->links() }}
-    </div>
+
+             !!}
+
+            {{ $books->links() }}
+        </div>
     </div>
 @endsection

@@ -3,8 +3,20 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Listagem de Categorias</h3>
+            <h3>Listagem de Produtos</h3>
             <a href="{{ route('products.create') }}" class="btn btn-primary">Novo produto</a>
+        </div>
+        <br />
+        <div class="row">
+            {!! Form::model(compact('search'),
+                ['class' => 'form-inline', 'method' => 'GET']) !!}
+
+                {!! Form::label('search', 'Pesquisar por título', ['class' => 'control-label']) !!}
+                {!! Form::text('search', null, ['class' => 'form-control']) !!}
+
+                {!! Button::primary('Buscar')->submit() !!}
+
+            {!! Form::close() !!}
         </div>
         <div class="row">
             {!!

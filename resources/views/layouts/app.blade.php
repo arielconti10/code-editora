@@ -24,12 +24,31 @@
         if(Auth::check()){
             $links = Navigation::links([
                 [
-                    'link' => route('categories.index'),
-                    'title' => 'Categorias'
+                    'Categorias',
+                    [
+                        [
+                            'link' => route('categories.index'),
+                            'title' => 'Listar'
+                        ],
+                        [
+                            'link' => route('thrashed.categories.index'),
+                            'title' => 'Lixeira'
+                        ]
+                    ],
                 ],
                 [
-                    'link' => route('products.index'),
-                    'title' => 'Produtos',
+                    'Livro',
+                    [
+                        [
+                            'link' => route('books.index'),
+                            'title' => 'Listar'
+                        ],
+                        [
+                            'link' => route('thrashed.books.index'),
+                            'title' => 'Lixeira'
+                        ]
+                    ],
+
 
                 ],
             ]);
@@ -56,6 +75,11 @@
         @if(Session::has('message'))
             <div class="container">
                 {!! Alert::success(Session::get('message'))->close() !!}
+            </div>
+        @endif
+        @if(Session::has('error'))
+            <div class="container">
+                {!! Alert::danger(Session::get('error'))->close() !!}
             </div>
         @endif
         @yield('content')

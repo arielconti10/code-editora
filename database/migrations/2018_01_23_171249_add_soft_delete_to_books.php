@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUserIdToProductsTable extends Migration
+class AddSoftDeleteToBooks extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddUserIdToProductsTable extends Migration
     public function up()
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->integer('author_id');
+            $table->softDeletes();
         });
     }
 
@@ -26,7 +26,7 @@ class AddUserIdToProductsTable extends Migration
     public function down()
     {
         Schema::table('books', function (Blueprint $table) {
-            $table->dropColumn('author_id');
+            $table->dropColumn('deleted_at');
         });
     }
 }
