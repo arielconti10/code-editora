@@ -21,13 +21,13 @@ $factory->define(App\Entities\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
-$factory->define(App\Entities\Category::class, function (Faker\Generator $faker) {
+$factory->define(\CodeEduBook\Models\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => ucfirst($faker->unique()->word),
     ];
 });
 
-$factory->define(App\Entities\Book::class, function (Faker\Generator $faker){
+$factory->define(\CodeEduBook\Models\Book::class, function (Faker\Generator $faker){
 
    $repository = app(\App\Repositories\UserRepository::class);
    $authorId = $repository->all()->random()->id;

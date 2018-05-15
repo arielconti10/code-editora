@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('Modules.CodeEduBook.resources.views.layouts.app')
 
 @section('content')
 <div class="container">

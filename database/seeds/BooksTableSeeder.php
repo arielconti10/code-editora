@@ -11,8 +11,8 @@ class BooksTableSeeder extends Seeder
      */
     public function run()
     {
-        $categories = \App\Entities\Category::all();
-        factory(\App\Entities\Book::class, 50)->create()->each(function ($book) use ($categories){
+        $categories = \CodeEduBook\Models\Category::all();
+        factory(\CodeEduBook\Models\Book::class, 50)->create()->each(function ($book) use ($categories){
             $categoriesRandom = $categories->random(4);
             $book->categories()->sync($categoriesRandom->pluck('id')->all());
         });
