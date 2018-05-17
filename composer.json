@@ -35,7 +35,8 @@
         ],
         "psr-4": {
             "App\\": "app/",
-            "CodeEduBook\\": "Modules/CodeEduBook/"
+            "CodeEduBook\\": "Modules/CodeEduBook/",
+            "CodeEduUser\\": "Modules/CodeEduUser/"
         }
     },
     "autoload-dev": {

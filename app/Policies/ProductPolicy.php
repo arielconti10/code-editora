@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Entities\User;
+use CodeEduUser\Models\User;
 use CodeEduBook\Models\Book;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -13,7 +13,7 @@ class ProductPolicy
     /**
      * Determine whether the user can view the product.
      *
-     * @param  \App\Entities\User  $user
+     * @param  \CodeEduUser\Models\User  $user
      * @param  \CodeEduBook\Models\Book  $product
      * @return mixed
      */
@@ -25,7 +25,7 @@ class ProductPolicy
     /**
      * Determine whether the user can create products.
      *
-     * @param  \App\Entities\User  $user
+     * @param  \CodeEduUser\Models\User  $user
      * @return mixed
      */
     public function create(User $user)
@@ -36,7 +36,7 @@ class ProductPolicy
     /**
      * Determine whether the user can update the product.
      *
-     * @param  \App\Entities\User  $user
+     * @param  \CodeEduUser\Models\User  $user
      * @param  \CodeEduBook\Models\Book  $product
      * @return mixed
      */
@@ -48,7 +48,7 @@ class ProductPolicy
     /**
      * Determine whether the user can delete the product.
      *
-     * @param  \App\Entities\User  $user
+     * @param  \CodeEduUser\Models\User  $user
      * @param  \CodeEduBook\Models\Book  $product
      * @return mixed
      */

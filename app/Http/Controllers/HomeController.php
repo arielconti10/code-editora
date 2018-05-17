@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Entities\User;
+use CodeEduUser\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities;
+namespace CodeEduUser\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,13 +19,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $readNotifications
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $unreadNotifications
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\User whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\User whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\User whereEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\User wherePassword($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\User whereRememberToken($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Entities\User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\CodeEduUser\Models\User whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\CodeEduUser\Models\User whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\CodeEduUser\Models\User whereEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\CodeEduUser\Models\User wherePassword($value)
+ * @method static \Illuminate\Database\Query\Builder|\CodeEduUser\Models\User whereRememberToken($value)
+ * @method static \Illuminate\Database\Query\Builder|\CodeEduUser\Models\User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\CodeEduUser\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class User extends Authenticatable
